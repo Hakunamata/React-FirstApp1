@@ -1,33 +1,42 @@
-import React from "react";
-import Aux from "../../../hoc/Aux";
+import React, { Component } from "react";
+import Aux from "../../../hoc/Aux/Aux";
 import Button from "../../UI/Button/Button";
 
-const orderSummary = props => {
-  const ingredientsSummary = Object.keys(props.ingredients).map(igkey => {
-    return (
-      <li key={igkey}>
-        <span style={{ textTransform: "capitalize" }}>{igkey}</span>:{" "}
-        {props.ingredients[igkey]}
-      </li>
-    );
-  });
-  return (
-    <Aux>
-      <h3>Your Order</h3>
-      <p>A delicious burger with the following ingredients:</p>
-      <ul>{ingredientsSummary}</ul>
-      <p>
-        <strong>Total Price : {props.totalPrice.toFixed(2)}</strong>
-      </p>
-      <p> Continue to checkout?? </p>
-      <Button btnType="Danger" clicked={props.purchaseDisontinued}>
-        CANCEL
-      </Button>
-      <Button btnType="Success" clicked={props.purchaseContinued}>
-        CONTINUE
-      </Button>
-    </Aux>
-  );
-};
+class OrderSummary extends Component {
+  componentWillUpdate() {
+    console.log("Inside Order summary ");
+  }
 
-export default orderSummary;
+  render() {
+    const ingredientsSummary = Object.keys(this.props.ingredients).map(
+      igkey => {
+        return (
+          <li key={igkey}>
+            <span style={{ textTransform: "capitalize" }}>{igkey}</span>:{" "}
+            {this.props.ingredients[igkey]}
+          </li>
+        );
+      }
+    );
+
+    return (
+      <Aux>
+        <h3>Your Order</h3>
+        <p>A delicious burger with the following ingredients:</p>
+        <ul>{ingredientsSummary}</ul>
+        <p>
+          <strong>Total Price : {this.props.totalPrice.toFixed(2)}</strong>
+        </p>
+        <p> Continue to checkout?? </p>
+        <Button btnType="Danger" clicked={this.props.purchaseDisontinued}>
+          CANCEL
+        </Button>
+        <Button btnType="Success" clicked={this.props.purchaseContinued}>
+          CONTINUE
+        </Button>
+      </Aux>
+    );
+  }
+}
+
+export default OrderSummary;
