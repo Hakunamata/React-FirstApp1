@@ -5,6 +5,8 @@
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
+    "axion": "latest",
+    "axios": "latest",
     "prop-types": "15.6.1",
     "react": "16.3.2",
     "react-dom": "16.3.2",

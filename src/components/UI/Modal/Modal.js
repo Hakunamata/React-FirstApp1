@@ -1,14 +1,20 @@
 import React, { Component } from "react";
+
+// import classes from "./Modal.css";
 import "./Modal.css";
-import Aux from "../../../hoc/Aux/Aux";
+import Aux from "../../../hoc/Aux";
 import Backdrop from "../Backdrop/Backdrop";
 
 class Modal extends Component {
   shouldComponentUpdate(nextProps, nextState) {
-    return nextProps.orderedStatus !== this.props.orderedStatus;
+    return (
+      nextProps.orderedStatus !== this.props.orderedStatus ||
+      nextProps.children !== this.props.children
+    );
   }
+
   componentWillUpdate() {
-    console.log("will update");
+    console.log("[Modal] WillUpdate");
   }
 
   render() {
@@ -16,7 +22,7 @@ class Modal extends Component {
       <Aux>
         <Backdrop
           show={this.props.orderedStatus}
-          clicked={this.props.modalClicked}
+          clicked={this.props.modalClosed}
         />
         <div
           className="Modal"
