@@ -43,7 +43,7 @@ class ContactData extends Component {
         validation: {
           required: true,
           minLength: 5,
-          maxLength: 5
+          maxLength: 8
         },
         valid: false,
         touched: false
@@ -99,7 +99,8 @@ class ContactData extends Component {
     }
     const order = {
       ingredients: this.props.ingredients,
-      price: this.props.price
+      price: this.props.price,
+      orderData: formData
     };
     axios
       .post("/orders.json", order)
@@ -121,11 +122,14 @@ class ContactData extends Component {
       updatedFormElement.validation
     );
     updatedFormElement.touched = true;
-    let isFormValid = true;
-    for (let key in updatedOrderForm)
-      isFormValid = updatedOrderForm[key].valid && isFormValid;
-
     updatedOrderForm[inputIdentifier] = updatedFormElement;
+    let isFormValid = true;
+
+    for (let key in updatedOrderForm) {
+      isFormValid = updatedOrderForm[key].valid && isFormValid;
+      console.log("KEY " + key);
+      console.log("Form validation " + updatedOrderForm[key].valid);
+    }
     this.setState({ orderForm: updatedOrderForm, isFormValid: isFormValid });
     console.log(isFormValid);
   };
@@ -135,7 +139,6 @@ class ContactData extends Component {
     if (rules.required) isValid = value.trim() !== "" && isValid;
     if (rules.minLength) isValid = value.length >= rules.minLength && isValid;
     if (rules.maxLength) isValid = value.length <= rules.maxLength && isValid;
-
     return isValid;
   }
   render() {
